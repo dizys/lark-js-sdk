@@ -1,0 +1,25 @@
+{
+  "name": "lark-js-sdk",
+  "version": "0.1.0",
+  "description": "Third-party Lark (Feishu, 飞书) SDK written in TypeScript",
+  "main": "bld/index.js",
+  "repository": "git@github.com:dizys/lark-js-sdk.git",
+  "author": "Dizy <mhisf@vip.qq.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "rimraf bld && tsc --project src/tsconfig.json"
+  },
+  "peerDependencies": {
+    "axios": "0.19",
+    "query-string": "6"
+  },
+  "devDependencies": {
+    "@magicspace/configs": "^0.2.5",
+    "axios": "^0.19.2",
+    "query-string": "^6.13.1",
+    "rimraf": "^3.0.2",
+    "ts-node-dev": "^1.0.0-pre.55",
+    "typescript": "^3.9.7"
+  }
+}
