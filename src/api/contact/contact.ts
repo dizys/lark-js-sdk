@@ -11,6 +11,11 @@ export interface ScopeData {
   authed_open_ids: string[];
 }
 
+export interface ContactCustomAttrsData<CustomAttrs = any> {
+  is_open: boolean;
+  custom_attrs: CustomAttrs;
+}
+
 export class ContactAPI extends LarkAPI {
   user = new ContactUserAPI(this.client);
   department = new ContactDepartmentAPI(this.client);
@@ -21,6 +26,15 @@ export class ContactAPI extends LarkAPI {
 
     return this.client.get<DataResponse<ScopeData>>(
       'contact/v1/scope/get',
+      tenant_access_token,
+    );
+  }
+
+  async getCustomAttrs() {
+    let tenant_access_token = await this.client.getTenantAccessToken();
+
+    return this.client.get<DataResponse<ContactCustomAttrsData>>(
+      'contact/v1/tenant/custom_attr/get',
       tenant_access_token,
     );
   }
