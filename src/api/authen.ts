@@ -1,5 +1,5 @@
 import {LarkAPI} from './@api';
-import {API_BASE_URL, DataResponse} from '../client';
+import {DataResponse} from '../client';
 
 export interface AuthenUserIdentityData {
   access_token: string;
@@ -36,7 +36,9 @@ export class AuthenAPI extends LarkAPI {
     state = state ? encodeURIComponent(state) : undefined;
     let appId = encodeURIComponent(this.client.appId);
 
-    return `${API_BASE_URL}authen/v1/index?redirect_uri=${redirectURL}&app_id=${appId}${
+    return `${
+      this.client.apiEndpoint
+    }authen/v1/index?redirect_uri=${redirectURL}&app_id=${appId}${
       state ? `&state=${state}` : ''
     }`;
   }

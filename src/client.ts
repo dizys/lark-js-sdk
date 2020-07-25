@@ -1,6 +1,5 @@
 import Axios, {AxiosResponse} from 'axios';
 
-export const API_BASE_URL = 'https://open.feishu.cn/open-apis/';
 const TOKEN_RENEW_TIME_AHEAD = 120;
 
 export interface AppAccessTokenResponse {
@@ -34,6 +33,7 @@ export class LarkAPIClient {
   constructor(
     public appId: string,
     public appSecret: string,
+    public apiEndpoint: string,
     public internal = true,
   ) {}
 
@@ -97,14 +97,14 @@ export class LarkAPIClient {
   }
 
   async get<T = any>(path: string, accessToken?: string) {
-    let response = await Axios.get(`${API_BASE_URL}${path}`, {
+    let response = await Axios.get(`${this.apiEndpoint}${path}`, {
       headers: {Authorization: `Bearer ${accessToken}`},
     });
     return handleResponse<T>(response);
   }
 
   async post<T = any>(path: string, data: any, accessToken?: string) {
-    let response = await Axios.post(`${API_BASE_URL}${path}`, data, {
+    let response = await Axios.post(`${this.apiEndpoint}${path}`, data, {
       headers: {Authorization: `Bearer ${accessToken}`},
     });
     return handleResponse<T>(response);
@@ -115,7 +115,7 @@ export class LarkAPIClient {
     formData: any,
     accessToken?: string,
   ) {
-    let response = await Axios.post(`${API_BASE_URL}${path}`, formData, {
+    let response = await Axios.post(`${this.apiEndpoint}${path}`, formData, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
         'Content-Type': 'multipart/form-data',
@@ -129,7 +129,7 @@ export class LarkAPIClient {
     responseType: DownloadResponseType,
     accessToken?: string,
   ) {
-    let response = await Axios.get(`${API_BASE_URL}${path}`, {
+    let response = await Axios.get(`${this.apiEndpoint}${path}`, {
       responseType,
       headers: {
         Authorization: `Bearer ${accessToken}`,

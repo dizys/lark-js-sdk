@@ -56,3 +56,25 @@ lark.contact.user
     console.log('User added:', user_info);
   });
 ```
+
+Use Feishu API Endpoint instead:
+
+```js
+import {Feishu, Lark} from 'lark-js-sdk';
+
+let feishu = new Feishu('<YOUR_APP_ID>', '<YOUR_APP_SECRET>');
+
+// or
+
+let feishu = new Lark(
+  '<YOUR_APP_ID>',
+  '<YOUR_APP_SECRET>',
+  'https://open.feishu.cn/open-apis/',
+);
+
+// Feishu has the same apis as Lark...
+```
+
+## License
+
+MIT, see the [LICENSE](/LICENSE) file for details.
