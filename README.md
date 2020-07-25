@@ -1,2 +1,3 @@
 # lark-js-sdk
-Third-party Lark (Feishu, 飞书) SDK written in TypeScript
+
+Third-party JavaScript Lark (Feishu, 飞书) SDK written in TypeScript

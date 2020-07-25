@@ -6,6 +6,7 @@ import {
   AppAPI,
   BotAPI,
   MessageAPI,
+  NotifyAPI,
 } from './api';
 
 export class Lark {
@@ -16,6 +17,7 @@ export class Lark {
   app = new AppAPI(this.client);
   bot = new BotAPI(this.client);
   message = new MessageAPI(this.client);
+  notify = new NotifyAPI(this.client);
 
   constructor(
     private appId: string,

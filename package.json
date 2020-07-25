@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "description": "Third-party Lark (Feishu, 飞书) SDK written in TypeScript",
   "main": "bld/index.js",
+  "types": "bld/index.d.ts",
+  "files": [
+    "bld"
+  ],
   "repository": "git@github.com:dizys/lark-js-sdk.git",
   "author": "Dizy <mhisf@vip.qq.com>",
   "license": "MIT",
