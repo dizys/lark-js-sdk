@@ -1,3 +1,3 @@
 export * from './client';
 export * from './lark';
-export * from './api/authen';
+export * from './api';
