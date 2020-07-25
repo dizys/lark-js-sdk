@@ -1,4 +1,4 @@
-![npm](https://img.shields.io/npm/v/lark-js-sdk?style=flat)
+[![npm](https://img.shields.io/npm/v/lark-js-sdk?style=flat)](https://www.npmjs.com/package/lark-js-sdk)
 
 # lark-js-sdk
 
