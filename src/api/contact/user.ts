@@ -90,7 +90,7 @@ export interface ContactDepartmentUserListData extends PageResponseData {
 }
 
 export interface ContactDepartmentUserDetailListOptions {
-  idType: 'department_id' | 'open_department_id';
+  id_type: 'department_id' | 'open_department_id';
   id: string;
   page_size: number;
   page_token?: string;
@@ -234,11 +234,11 @@ export class ContactUserAPI extends LarkAPI {
   async getDepartmentUserDetailList(
     options: ContactDepartmentUserDetailListOptions,
   ) {
-    let {idType, id, ...restOptions} = options;
+    let {id_type, id, ...restOptions} = options;
 
     let tenant_access_token = await this.client.getTenantAccessToken();
 
-    let query = QS.stringify({[idType]: id, ...restOptions});
+    let query = QS.stringify({[id_type]: id, ...restOptions});
 
     return await this.client.get<
       DataResponse<ContactDepartmentUserDetailListData>
