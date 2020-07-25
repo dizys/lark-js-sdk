@@ -1,3 +1,5 @@
+![npm](https://img.shields.io/npm/v/lark-js-sdk?style=flat)
+
 # lark-js-sdk
 
 Third-party JavaScript Lark (Feishu, 飞书) SDK written in TypeScript
