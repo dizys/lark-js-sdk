@@ -1,5 +1,12 @@
 import {LarkAPIClient} from './client';
-import {AuthenAPI, ContactAPI, UserGroupAPI, AppAPI, BotAPI} from './api';
+import {
+  AuthenAPI,
+  ContactAPI,
+  UserGroupAPI,
+  AppAPI,
+  BotAPI,
+  MessageAPI,
+} from './api';
 
 export class Lark {
   client = new LarkAPIClient(this.appId, this.appSecret, this.internal);
@@ -8,6 +15,7 @@ export class Lark {
   userGroup = new UserGroupAPI(this.client);
   app = new AppAPI(this.client);
   bot = new BotAPI(this.client);
+  message = new MessageAPI(this.client);
 
   constructor(
     private appId: string,

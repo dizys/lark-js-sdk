@@ -19,6 +19,8 @@ export class LarkAPIError extends Error {
   }
 }
 
+export type DownloadResponseType = 'arraybuffer' | 'blob' | 'stream';
+
 export class LarkAPIClient {
   appAccessToken: string | undefined;
   private appAccessTokenExpires: number | undefined;
@@ -106,6 +108,34 @@ export class LarkAPIClient {
       headers: {Authorization: `Bearer ${accessToken}`},
     });
     return handleResponse<T>(response);
+  }
+
+  async postFormData<T = any>(
+    path: string,
+    formData: any,
+    accessToken?: string,
+  ) {
+    let response = await Axios.post(`${API_BASE_URL}${path}`, formData, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return handleResponse<T>(response);
+  }
+
+  async download(
+    path: string,
+    responseType: DownloadResponseType,
+    accessToken?: string,
+  ) {
+    let response = await Axios.get(`${API_BASE_URL}${path}`, {
+      responseType,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    return response;
   }
 }
 
