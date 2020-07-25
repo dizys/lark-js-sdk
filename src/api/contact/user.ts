@@ -158,14 +158,52 @@ export interface ContactRoleListData {
   role_list: ContactRole[];
 }
 
-export interface ContactUserEntry {
+export interface ContactRoleMemberEntry {
   name: string;
   open_id: string;
   user_id: string;
 }
 
 export interface ContactRoleMembersData extends PageResponseData {
-  user_list: ContactUserEntry[];
+  user_list: ContactRoleMemberEntry[];
+}
+
+export interface ContactUserIdsByMobilesOrEmailsOptions {
+  mobiles?: string[];
+  emails?: string[];
+}
+
+export interface ContactUserIdEntry {
+  open_id: string;
+  user_id: string;
+}
+
+export interface ContactUserIdsByMobilesOrEmailsData {
+  email_users: {[key: string]: ContactUserIdEntry[]};
+  emails_not_exist: string[];
+  mobile_users: {[key: string]: ContactUserIdEntry[]};
+  mobiles_not_exist: string[];
+}
+
+export interface ContactUserIdsByUnionIdsData {
+  user_infos: {[key: string]: ContactUserIdEntry};
+}
+
+export interface ContactUserSearchEntry {
+  avatar: {
+    avatar_72: string;
+    avatar_240: string;
+    avatar_640: string;
+    avatar_origin: string;
+  };
+  department_ids: string[];
+  name: string;
+  open_id: string;
+  user_id: string;
+}
+
+export interface ContactUserSearchData extends PageResponseData {
+  users: ContactUserSearchEntry[];
 }
 
 export class ContactUserAPI extends LarkAPI {
@@ -257,6 +295,55 @@ export class ContactUserAPI extends LarkAPI {
 
     return this.client.get<DataResponse<ContactRoleMembersData>>(
       `contact/v2/role/members?${query}`,
+      tenant_access_token,
+    );
+  }
+
+  async getUserIdsByMobilesOrEmails(
+    options: ContactUserIdsByMobilesOrEmailsOptions,
+  ) {
+    let {emails = [], mobiles = []} = options;
+
+    let tenant_access_token = await this.client.getTenantAccessToken();
+
+    let emailQueries = emails.map(
+      email => `emails=${encodeURIComponent(email)}`,
+    );
+    let mobileQueries = mobiles.map(
+      mobile => `mobiles=${encodeURIComponent(mobile)}`,
+    );
+    let query = emailQueries.concat(mobileQueries).join('&');
+
+    return this.client.get<DataResponse<ContactUserIdsByMobilesOrEmailsData>>(
+      `user/v1/batch_get_id?${query}`,
+      tenant_access_token,
+    );
+  }
+
+  async getUserIdsByUnionIds(unionIds: string[]) {
+    let tenant_access_token = await this.client.getTenantAccessToken();
+
+    let query = unionIds
+      .map(unionId => `union_ids=${encodeURIComponent(unionId)}`)
+      .join('&');
+
+    return this.client.get<DataResponse<ContactUserIdsByUnionIdsData>>(
+      `user/v1/union_id/batch_get/list?${query}`,
+      tenant_access_token,
+    );
+  }
+
+  async search(query: string, pageSize = 20, pageToken?: string) {
+    let tenant_access_token = await this.client.getTenantAccessToken();
+
+    let _query = QS.stringify({
+      query,
+      page_size: pageSize,
+      page_token: pageToken,
+    });
+
+    return this.client.get<DataResponse<ContactUserSearchData>>(
+      `search/v1/user?${_query}`,
       tenant_access_token,
     );
   }
