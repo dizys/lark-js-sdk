@@ -1,19 +1,29 @@
 {
   "name": "lark-js-sdk",
   "version": "0.1.0",
-  "description": "Third-party Lark (Feishu, 飞书) SDK written in TypeScript",
+  "description": "Third-party JavaScript Lark (Feishu, 飞书) SDK written in TypeScript",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dizys/lark-js-sdk"
+  },
+  "author": "Dizy <mhisf@vip.qq.com>",
+  "keywords": [
+    "feishu",
+    "lark",
+    "sdk",
+    "api",
+    "client"
+  ],
   "main": "bld/index.js",
   "types": "bld/index.d.ts",
   "files": [
     "bld"
   ],
-  "repository": "git@github.com:dizys/lark-js-sdk.git",
-  "author": "Dizy <mhisf@vip.qq.com>",
-  "license": "MIT",
-  "private": false,
   "scripts": {
     "build": "rimraf bld && tsc --project src/tsconfig.json"
   },
+  "license": "MIT",
+  "private": false,
   "peerDependencies": {
     "axios": "0.19",
     "isomorphic-form-data": "2",
