@@ -1,6 +1,8 @@
 import {LarkAPI} from '../@api';
-import {ContactUserAPI} from './user';
 import {DataResponse} from '../../client';
+import {ContactUserAPI} from './user';
+import {ContactDepartmentAPI} from './department';
+import {ContactBatchAPI} from './batch';
 
 export interface ScopeData {
   authed_departments: string[];
@@ -11,6 +13,8 @@ export interface ScopeData {
 
 export class ContactAPI extends LarkAPI {
   user = new ContactUserAPI(this.client);
+  department = new ContactDepartmentAPI(this.client);
+  batch = new ContactBatchAPI(this.client);
 
   async getScopes() {
     let tenant_access_token = await this.client.getTenantAccessToken();
