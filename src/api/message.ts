@@ -50,13 +50,17 @@ export type PostElement =
   | PostAtElement
   | PostImgElement;
 
+export type PostI18nType = 'zh_cn' | 'en_us' | 'ja_jp' 
+
 export interface MessageSendPostOptionsBase {
   msg_type: 'post';
   content: {
-    [key: string]: {
-      title: string;
-      content: PostElement[][];
-    };
+    post: {
+      [key in PostI18nType]?: {
+        title: string;
+        content: PostElement[][];
+      };
+    }
   };
 }
 
