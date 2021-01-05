@@ -75,9 +75,13 @@ export class LarkAPIClient {
           tenant_key: this.tenantKey,
         };
 
-    let {tenant_access_token, expire} = await this.post<
-      TenantAccessTokenResponse
-    >(`auth/v3/tenant_access_token/${this.internal ? 'internal/' : ''}`, data);
+    let {
+      tenant_access_token,
+      expire,
+    } = await this.post<TenantAccessTokenResponse>(
+      `auth/v3/tenant_access_token/${this.internal ? 'internal/' : ''}`,
+      data,
+    );
 
     this.tenantAccessToken = tenant_access_token;
     this.tenantAccessTokenExpires =
@@ -115,10 +119,15 @@ export class LarkAPIClient {
     formData: any,
     accessToken?: string,
   ) {
+    let contentType =
+      typeof formData === 'object' && '_boundary' in formData
+        ? `multipart/form-data; boundary=${formData._boundary}`
+        : 'multipart/form-data';
+
     let response = await Axios.post(`${this.apiEndpoint}${path}`, formData, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
-        'Content-Type': `multipart/form-data; boundary=${formData._boundary}`,
+        'Content-Type': contentType,
       },
     });
     return handleResponse<T>(response);
