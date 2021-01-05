@@ -118,7 +118,7 @@ export class LarkAPIClient {
     let response = await Axios.post(`${this.apiEndpoint}${path}`, formData, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
-        'Content-Type': 'multipart/form-data',
+        'Content-Type': `multipart/form-data; boundary=${formData._boundary}`,
       },
     });
     return handleResponse<T>(response);
